@@ -22,7 +22,7 @@ export class AuthController {
       }
       const token = encrypt.generateToken({ id: user.id });
 
-      return res.status(200).json({ message: "Login successful", user, token });
+      return res.status(200).json({ token });
     } catch (error) {
       console.error(error);
       return res.status(500).json({ message: "Internal server error" });
