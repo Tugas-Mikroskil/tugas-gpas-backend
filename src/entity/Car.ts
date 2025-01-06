@@ -2,7 +2,7 @@ import { Column, Entity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateCol
 
 @Entity({ name: "cars" })
 export class Car {
-    @PrimaryGeneratedColumn("uuid")
+    @PrimaryGeneratedColumn()
     id: string;
 
     @Column({ nullable: false })
@@ -19,6 +19,9 @@ export class Car {
 
     @Column("text", { array: true, nullable: true })
     gallery: string[]; // Array for gallery images
+
+    @Column({ nullable: true })
+    description: string; // Main image
 
     @CreateDateColumn()
     createdAt: Date;

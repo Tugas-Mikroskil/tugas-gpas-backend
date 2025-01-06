@@ -37,6 +37,10 @@ Router.get("/:id",
 Router.put("/:id",
     // authentification, 
     // authorization(["admin"]), 
+    upload.fields([
+        { name: "image", maxCount: 1 }, // For the main image
+        { name: "gallery", maxCount: 10 }, // For multiple gallery images
+    ]),
     CarController.updateCar);
 
 // Delete a specific car by ID (admin only)

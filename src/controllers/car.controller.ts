@@ -91,9 +91,13 @@ export class CarController {
   // Create a new car with image upload
   static async createCar(req: MulterRequest, res: Response) {
     try {
-      const { name, seats, price } = req.body;
+      const { name, seats, price, description } = req.body;
+      
       const carRepository = AppDataSource.getRepository(Car);
-
+      const existingCar = await carRepository.findOne({ where: { name } });
+      if (existingCar) {
+        return res.status(400).json({ message: "Car already exist" });
+      }
       // Handle the main image
       const image = req.files?.image ? req.files.image[0].filename : null;
 
@@ -106,6 +110,7 @@ export class CarController {
         price,
         image,
         gallery, // Assuming your Car entity has a gallery field to store multiple image filenames
+        description
       });
 
       await carRepository.save(newCar);
@@ -121,21 +126,58 @@ export class CarController {
   }
 
   // Update a car by ID
-  static async updateCar(req: Request, res: Response) {
+  static async updateCar(req: MulterRequest, res: Response) {
     try {
       const { id } = req.params;
-      const { name, seats, price } = req.body;
+      const { name, seats, price, description } = req.body;
       const carRepository = AppDataSource.getRepository(Car);
 
+      // Find the car by ID
       const car = await carRepository.findOneBy({ id });
       if (!car) {
         return res.status(404).json({ message: "Car not found" });
       }
 
+      // Get the uploads directory path
+      const uploadsPath = path.join(__dirname, "../uploads");
+
+      // Handle the main image update
+      if (req.files?.image) {
+        // Delete the old image file if it exists
+        if (car.image) {
+          const oldImagePath = path.join(uploadsPath, car.image);
+          if (fs.existsSync(oldImagePath)) {
+            fs.unlinkSync(oldImagePath); // Delete the old file
+          }
+        }
+
+        // Save the new image file
+        car.image = req.files.image[0].filename;
+      }
+
+      // Handle the gallery update
+      if (req.files?.gallery) {
+        // Delete the old gallery files if they exist
+        if (car.gallery && car.gallery.length > 0) {
+          car.gallery.forEach((file) => {
+            const oldFilePath = path.join(uploadsPath, file);
+            if (fs.existsSync(oldFilePath)) {
+              fs.unlinkSync(oldFilePath); // Delete each old file
+            }
+          });
+        }
+
+        // Save the new gallery files
+        car.gallery = req.files.gallery.map((file) => file.filename);
+      }
+
+      // Update other car fields
       car.name = name;
       car.seats = seats;
       car.price = price;
+      car.description = description;
 
+      // Save the updated car to the database
       await carRepository.save(car);
 
       // Clear cache to ensure updated car data is reflected in future fetches
@@ -154,11 +196,34 @@ export class CarController {
       const { id } = req.params;
       const carRepository = AppDataSource.getRepository(Car);
 
+      // Find the car by ID
       const car = await carRepository.findOneBy({ id });
       if (!car) {
         return res.status(404).json({ message: "Car not found" });
       }
 
+      // Get the uploads directory path
+      const uploadsPath = path.join(__dirname, "../uploads");
+
+      // Delete the main image file if it exists
+      if (car.image) {
+        const imagePath = path.join(uploadsPath, car.image);
+        if (fs.existsSync(imagePath)) {
+          fs.unlinkSync(imagePath); // Delete the file
+        }
+      }
+
+      // Delete the gallery files if they exist
+      if (car.gallery && car.gallery.length > 0) {
+        car.gallery.forEach((file) => {
+          const filePath = path.join(uploadsPath, file);
+          if (fs.existsSync(filePath)) {
+            fs.unlinkSync(filePath); // Delete each file
+          }
+        });
+      }
+
+      // Remove the car from the database
       await carRepository.remove(car);
 
       // Clear cache to ensure deleted car is removed from future fetches
