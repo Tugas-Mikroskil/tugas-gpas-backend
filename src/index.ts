@@ -7,6 +7,7 @@ import "reflect-metadata";
 import { userRouter } from "./routes/user.routes";
 import { movieRouter } from "./routes/movie.routes";
 import { carRouter } from "./routes/car.routes";
+import { orderRouter } from "./routes/order.routes";
 import { errorHandler } from "./middleware/error.middleware";
 dotenv.config();
 
@@ -23,6 +24,7 @@ const { PORT = 3000 } = process.env;
 app.use("/auth", userRouter);
 app.use("/api", movieRouter);
 app.use("/car", carRouter);
+app.use("/order", orderRouter);
 
 app.get("*", (req: Request, res: Response) => {
   res.status(505).json({ message: "Bad Request" });

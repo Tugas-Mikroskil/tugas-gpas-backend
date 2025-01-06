@@ -32,6 +32,7 @@
     "dev": "nodemon build/index.js",
     "start:dev": "concurrently \"tsc -w\" \"nodemon build/index.js\"",
     "build": "tsc",
+    "docker": "docker compose up --build",
     "start": "ts-node src/index.ts",
     "typeorm": "typeorm-ts-node-commonjs",
     "migration": "npm run typeorm migration:run -- -d ./src/data-source.ts",

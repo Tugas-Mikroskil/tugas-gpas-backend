@@ -5,6 +5,7 @@ import * as dotenv from "dotenv";
 import { User } from "./entity/User";
 import { Movie } from "./entity/Movie";
 import { Car } from "./entity/Car";
+import { Order } from "./entity/Order";
 
 dotenv.config();
 
@@ -21,7 +22,7 @@ export const AppDataSource = new DataSource({
 
   synchronize: NODE_ENV === "dev" ? true : false,
   logging: NODE_ENV === "dev" ? true : false,
-  entities: [User, Car],
+  entities: [User, Car, Order],
   migrations: [__dirname + "/migration/*.ts"],
   subscribers: [],
 
