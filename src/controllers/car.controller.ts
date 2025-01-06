@@ -22,13 +22,12 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-// Extend the Request type to include Multer's file property
+// Extend the Request type to include Multer's file and files properties
 interface MulterRequest extends Request {
-  file: {
-    filename: string;
-    path: string;
-    mimetype: string;
-    size: number;
+  file?: Express.Multer.File; // Single file for the main image
+  files?: {
+    image?: Express.Multer.File[]; // Array of files for the main image (maxCount: 1)
+    gallery?: Express.Multer.File[]; // Array of files for the gallery (maxCount: 10)
   };
 }
 
@@ -95,15 +94,20 @@ export class CarController {
       const { name, seats, price } = req.body;
       const carRepository = AppDataSource.getRepository(Car);
 
-      // Check if a file is uploaded
-      const image = req.file ? req.file.filename : null;
+      // Handle the main image
+      const image = req.files?.image ? req.files.image[0].filename : null;
+
+      // Handle the gallery images
+      const gallery = req.files?.gallery ? req.files.gallery.map(file => file.filename) : [];
 
       const newCar = carRepository.create({
         name,
         seats,
         price,
         image,
+        gallery, // Assuming your Car entity has a gallery field to store multiple image filenames
       });
+
       await carRepository.save(newCar);
 
       // Clear cache to ensure newly created car is included in future fetches

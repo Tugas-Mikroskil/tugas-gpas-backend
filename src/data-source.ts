@@ -21,7 +21,7 @@ export const AppDataSource = new DataSource({
 
   synchronize: NODE_ENV === "dev" ? true : false,
   logging: NODE_ENV === "dev" ? true : false,
-  entities: [User, Movie, Car],
+  entities: [User, Car],
   migrations: [__dirname + "/migration/*.ts"],
   subscribers: [],
 
