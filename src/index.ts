@@ -9,6 +9,7 @@ import { movieRouter } from "./routes/movie.routes";
 import { carRouter } from "./routes/car.routes";
 import { orderRouter } from "./routes/order.routes";
 import { errorHandler } from "./middleware/error.middleware";
+import { notificationRouter } from "./routes/notification.routes";
 dotenv.config();
 
 const app = express();
@@ -25,6 +26,7 @@ app.use("/auth", userRouter);
 app.use("/api", movieRouter);
 app.use("/car", carRouter);
 app.use("/order", orderRouter);
+app.use("/notification", notificationRouter);
 
 app.get("*", (req: Request, res: Response) => {
   res.status(505).json({ message: "Bad Request" });

@@ -5,6 +5,9 @@ export class Order {
   @PrimaryGeneratedColumn()
   id: number;
 
+  @Column({ nullable: true })
+  userId: string;
+
   @Column()
   firstName: string;
 

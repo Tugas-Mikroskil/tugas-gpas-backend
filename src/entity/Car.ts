@@ -11,7 +11,7 @@ export class Car {
     @Column({ type: "int", nullable: false })
     seats: number;
 
-    @Column({ type: "numeric", precision: 10, scale: 2, nullable: false })
+    @Column({ type: "numeric", nullable: false })
     price: number;
 
     @Column({ nullable: true })

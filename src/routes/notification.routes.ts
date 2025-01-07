@@ -1,54 +1,48 @@
 import * as express from "express";
 import { authentification } from "../middleware/auth.middleware";
 import { authorization } from "../middleware/authorization.middleware";
-import { OrderController } from "../controllers/order.controller";
+import { NotificationController } from "../controllers/notification.controller";
 
 const Router = express.Router();
 
-// Create a new order (admin only)
+// Create a new notification (admin only)
 Router.post(
   "/",
 //   authentification,
 //   authorization(["admin"]),
-  OrderController.createOrder
+  NotificationController.createNotification
 );
 
-// Get all orders (admin only)
+// Get all notifications (admin only)
 Router.get(
   "/",
 //   authentification,
 //   authorization(["admin"]),
-  OrderController.getAllOrders
-);
-Router.get(
-  "/user/:id",
-//   authentification,
-//   authorization(["admin"]),
-  OrderController.getOrderByUserId
+  NotificationController.getAllNotifications
 );
 
-// Get a specific order by ID (admin only)
+// Get a specific notification by ID (admin only)
 Router.get(
   "/:id",
 //   authentification,
 //   authorization(["admin"]),
-  OrderController.getOrderById
+  NotificationController.getNotificationById
 );
 
-// Update a specific order by ID (admin only)
+// Update a specific notification by ID (admin only)
 Router.put(
   "/:id",
 //   authentification,
 //   authorization(["admin"]),
-  OrderController.updateOrder
+  NotificationController.updateNotification
 );
 
-// Delete a specific order by ID (admin only)
+// Delete a specific notification by ID (admin only)
 Router.delete(
   "/:id",
 //   authentification,
 //   authorization(["admin"]),
-  OrderController.deleteOrder
+  NotificationController.deleteNotification
 );
 
-export { Router as orderRouter };
+export { Router as notificationRouter };
