@@ -42,7 +42,7 @@ export class OrderController {
         try {
             // Find orders where the userId matches
             const orders = await orderRepository.find({
-                where: { userId: (id) }, // Filter by userId
+                where: { userId: parseInt(id) }, // Filter by userId
             });
 
             if (orders.length === 0) {

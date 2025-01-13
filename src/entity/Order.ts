@@ -1,4 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
 @Entity()
 export class Order {
@@ -6,7 +12,7 @@ export class Order {
   id: number;
 
   @Column({ nullable: true })
-  userId: string;
+  userId: number; // Match the type of User.id (number)
 
   @Column()
   firstName: string;
@@ -18,7 +24,7 @@ export class Order {
   days: number;
 
   @Column({ nullable: true })
-  carId: number;
+  carId: number; // Match the type of Car.id (number)
 
   @Column()
   phoneNumber: string;
@@ -31,4 +37,10 @@ export class Order {
 
   @Column()
   destination: string;
+
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
 }

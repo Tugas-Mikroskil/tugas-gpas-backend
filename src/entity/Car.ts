@@ -3,7 +3,7 @@ import { Column, Entity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateCol
 @Entity({ name: "cars" })
 export class Car {
     @PrimaryGeneratedColumn()
-    id: string;
+    id: number; // Use number for auto-increment IDs
 
     @Column({ nullable: false })
     name: string;
@@ -11,17 +11,17 @@ export class Car {
     @Column({ type: "int", nullable: false })
     seats: number;
 
-    @Column({ type: "numeric", nullable: false })
+    @Column({ type: "decimal", precision: 10, scale: 2, nullable: false }) // Use decimal for numeric
     price: number;
 
     @Column({ nullable: true })
     image: string; // Main image
 
-    @Column("text", { array: true, nullable: true })
+    @Column("json", { nullable: true }) // Use JSON for array data
     gallery: string[]; // Array for gallery images
 
     @Column({ nullable: true })
-    description: string; // Main image
+    description: string; // Description
 
     @CreateDateColumn()
     createdAt: Date;

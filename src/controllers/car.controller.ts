@@ -75,7 +75,7 @@ export class CarController {
     try {
       const { id } = req.params;
       const carRepository = AppDataSource.getRepository(Car);
-      const car = await carRepository.findOneBy({ id });
+      const car = await carRepository.findOneBy({ id : +id });
 
       if (!car) {
         return res.status(404).json({ message: "Car not found" });
@@ -133,7 +133,7 @@ export class CarController {
       const carRepository = AppDataSource.getRepository(Car);
 
       // Find the car by ID
-      const car = await carRepository.findOneBy({ id });
+      const car = await carRepository.findOneBy({ id : +id });
       if (!car) {
         return res.status(404).json({ message: "Car not found" });
       }
@@ -197,7 +197,7 @@ export class CarController {
       const carRepository = AppDataSource.getRepository(Car);
 
       // Find the car by ID
-      const car = await carRepository.findOneBy({ id });
+      const car = await carRepository.findOneBy({ id : +id });
       if (!car) {
         return res.status(404).json({ message: "Car not found" });
       }
