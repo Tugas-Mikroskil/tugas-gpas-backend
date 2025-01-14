@@ -20,7 +20,7 @@ var Order = /** @class */ (function () {
     ], Order.prototype, "id", void 0);
     __decorate([
         (0, typeorm_1.Column)({ nullable: true }),
-        __metadata("design:type", Number)
+        __metadata("design:type", String)
     ], Order.prototype, "userId", void 0);
     __decorate([
         (0, typeorm_1.Column)(),

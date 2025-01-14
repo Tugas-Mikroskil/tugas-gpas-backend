@@ -11,7 +11,7 @@ var Notification_1 = require("./entity/Notification");
 dotenv.config();
 var _a = process.env, DB_HOST = _a.DB_HOST, DB_PORT = _a.DB_PORT, DB_USERNAME = _a.DB_USERNAME, DB_PASSWORD = _a.DB_PASSWORD, DB_DATABASE = _a.DB_DATABASE, NODE_ENV = _a.NODE_ENV;
 exports.AppDataSource = new typeorm_1.DataSource({
-    type: "mysql",
+    type: "postgres",
     host: DB_HOST,
     port: parseInt(DB_PORT || "3306"),
     username: DB_USERNAME,

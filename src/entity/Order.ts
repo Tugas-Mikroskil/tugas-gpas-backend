@@ -4,7 +4,7 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
-} from 'typeorm';
+} from "typeorm";
 
 @Entity()
 export class Order {
@@ -12,7 +12,7 @@ export class Order {
   id: number;
 
   @Column({ nullable: true })
-  userId: number; // Match the type of User.id (number)
+  userId: string; // Match the type of User.id (number)
 
   @Column()
   firstName: string;

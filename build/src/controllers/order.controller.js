@@ -117,12 +117,14 @@ var OrderController = /** @class */ (function () {
                     case 1:
                         _a.trys.push([1, 4, , 5]);
                         return [4 /*yield*/, orderRepository.find({
-                                where: { userId: parseInt(id) }, // Filter by userId
+                                where: { userId: id }, // Filter by userId
                             })];
                     case 2:
                         orders = _a.sent();
                         if (orders.length === 0) {
-                            return [2 /*return*/, res.status(404).json({ message: "No orders found for this user" })];
+                            return [2 /*return*/, res
+                                    .status(404)
+                                    .json({ message: "No orders found for this user" })];
                         }
                         return [4 /*yield*/, Promise.all(orders.map(function (order) { return __awaiter(_this, void 0, void 0, function () {
                                 var car;
@@ -158,8 +160,18 @@ var OrderController = /** @class */ (function () {
                     case 0:
                         _a = req.body, userId = _a.userId, firstName = _a.firstName, lastName = _a.lastName, days = _a.days, carId = _a.carId, phoneNumber = _a.phoneNumber, citizenNumber = _a.citizenNumber, address = _a.address, destination = _a.destination;
                         // Check for null or missing values
-                        if (!userId || !firstName || !lastName || !days || !carId || !phoneNumber || !citizenNumber || !address || !destination) {
-                            return [2 /*return*/, res.status(400).json({ message: "All fields are required and cannot be null" })];
+                        if (!userId ||
+                            !firstName ||
+                            !lastName ||
+                            !days ||
+                            !carId ||
+                            !phoneNumber ||
+                            !citizenNumber ||
+                            !address ||
+                            !destination) {
+                            return [2 /*return*/, res
+                                    .status(400)
+                                    .json({ message: "All fields are required and cannot be null" })];
                         }
                         order = new Order_1.Order();
                         carRepository = data_source_1.AppDataSource.getRepository(Car_1.Car);
@@ -212,10 +224,14 @@ var OrderController = /** @class */ (function () {
                         error_2 = _b.sent();
                         console.error("Error saving order or notification:", error_2);
                         // Handle specific database errors
-                        if (error_2.code === "23505") { // Unique constraint violation
-                            return [2 /*return*/, res.status(400).json({ message: "Duplicate order or notification detected" })];
+                        if (error_2.code === "23505") {
+                            // Unique constraint violation
+                            return [2 /*return*/, res
+                                    .status(400)
+                                    .json({ message: "Duplicate order or notification detected" })];
                         }
-                        if (error_2.code === "23503") { // Foreign key violation
+                        if (error_2.code === "23503") {
+                            // Foreign key violation
                             return [2 /*return*/, res.status(400).json({ message: "Invalid carId or userId" })];
                         }
                         return [2 /*return*/, res.status(500).json({ message: "Internal server error" })];

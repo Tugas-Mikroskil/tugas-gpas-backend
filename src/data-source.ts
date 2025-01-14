@@ -13,7 +13,7 @@ const { DB_HOST, DB_PORT, DB_USERNAME, DB_PASSWORD, DB_DATABASE, NODE_ENV } =
   process.env;
 
 export const AppDataSource = new DataSource({
-  type: "mysql", // Change from "postgres" to "mysql"
+  type: "postgres", // Change from "postgres" to "mysql"
   host: DB_HOST,
   port: parseInt(DB_PORT || "3306"), // Default MySQL port is 3306
   username: DB_USERNAME,
