@@ -27,7 +27,7 @@ var Car = /** @class */ (function () {
         __metadata("design:type", Number)
     ], Car.prototype, "seats", void 0);
     __decorate([
-        (0, typeorm_1.Column)({ type: "decimal", precision: 10, scale: 2, nullable: false }) // Use decimal for numeric
+        (0, typeorm_1.Column)({ type: "decimal", nullable: false }) // Use decimal for numeric
         ,
         __metadata("design:type", Number)
     ], Car.prototype, "price", void 0);

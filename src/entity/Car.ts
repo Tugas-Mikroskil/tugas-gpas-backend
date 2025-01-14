@@ -11,7 +11,7 @@ export class Car {
     @Column({ type: "int", nullable: false })
     seats: number;
 
-    @Column({ type: "decimal", precision: 10, scale: 2, nullable: false }) // Use decimal for numeric
+    @Column({ type: "decimal", nullable: false }) // Use decimal for numeric
     price: number;
 
     @Column({ nullable: true })
