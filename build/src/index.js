@@ -47,10 +47,13 @@ var car_routes_1 = require("./routes/car.routes");
 var order_routes_1 = require("./routes/order.routes");
 var error_middleware_1 = require("./middleware/error.middleware");
 var notification_routes_1 = require("./routes/notification.routes");
+var cors = require("cors"); // Import the cors package
 dotenv.config();
 var app = express();
 // Use morgan for logging
 app.use(morgan("combined"));
+// Enable CORS
+app.use(cors());
 app.use(express.json());
 app.use(error_middleware_1.errorHandler);
 var _a = process.env.PORT, PORT = _a === void 0 ? 3000 : _a;
